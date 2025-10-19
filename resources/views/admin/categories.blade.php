@@ -441,7 +441,7 @@
                         <div class="main-content-inner">
                             <div class="main-content-wrap">
                                 <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-                                    <h3>Brands</h3>
+                                    <h3>Categories</h3>
                                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                                         <li>
                                             <a href="index.html">
@@ -470,7 +470,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="{{route('admin.addbrand')}}"><i
+                                        <a class="tf-button style-1 w208" href="{{route('admin.addcategories')}}"><i
                                                 class="icon-plus"></i>Add new</a>
                                     </div>
                                     <div class="wg-table table-all-user">
@@ -481,28 +481,28 @@
                                                         <th>#</th>
                                                         <th>Name</th>
                                                         <th>Slug</th>
-                                                        <th>Products</th>
+                                                        <th>Product</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                <tbody>
-                                                    @foreach($brands as $brand)
+                                                    @foreach($categories as $category)
                                                     <tr>
-                                                        <td>{{$brand->id}}</td>
+                                                        <td>{{$category->id}}</td>
                                                         <td class="pname">
                                                             <div class="image">
-                                                                <img src="{{asset('uploads/brands')}}/{{$brand->image}}" alt="" class="image">
+                                                                <img src="{{asset('uploads/category')}}/{{$category->image}}" alt="" class="image">
                                                             </div>
                                                             <div class="name">
-                                                                <a href="#" class="body-title-2">{{$brand->name}}</a>
+                                                                <a href="#" class="body-title-2">{{$category->name}}</a>
                                                             </div>
                                                         </td>
-                                                        <td>{{$brand->slug}}</td>
+                                                        <td>{{$category->slug}}</td>
                                                         <td><a href="#" target="_blank">0</a></td>
                                                         <td>
                                                             <div class="list-icon-function">
                                                                 
-                                                                <a href="{{route('admin.editbrand',$brand->id)}}">
+                                                                <a href="#">
 
                                                                     <div class="item edit">
                                                                         <i class="icon-edit-3"></i>
@@ -510,7 +510,7 @@
                                                                 </a>
                                                                
                                                                 
-                                                                 <form action="{{route('admin.deletebrand', ['id' => $brand->id])}}" method="POST"
+                                                                 <form action="#" method="POST"
                                                                 onsubmit="return confirm('Are you sure ?')">
                                                                     @csrf
                                                                     @method('DELETE')
@@ -530,7 +530,7 @@
                                         </div>
                                         <div class="divider"></div>
                                         <div class="flex items-center justify-between flex-wrap gap10 wgp-pagination">
-                                            {{$brands->links('pagination::bootstrap-5')}}
+                                            {{$categories->links('pagination::bootstrap-5')}}
 
                                         </div>
                                     </div>

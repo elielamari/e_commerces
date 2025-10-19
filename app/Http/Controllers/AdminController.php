@@ -9,6 +9,9 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Facades\File;
+use App\Models\Category;
+
+
 
 
 
@@ -101,8 +104,44 @@ class AdminController extends Controller
             }
             $brand->delete();
             return redirect()->route('admin.brands')->with('brand_message','Brand deleted successfully');
-           }
+         }
+           
+        public function categories(){
+            $categories = Category::orderBy('id', 'DESC')->paginate(10);
+            return view('admin.categories', compact('categories'));
+         }
+         public function addCategories(){
+            return view('admin.addcategories');
+         }
+
+         public function saveCategory(Request $request)
+        {
+            $request->validate([
+                'name' => 'required',
+                'slug' => 'required|unique:brands,slug',
+                'image' => 'mimes:png,jpeg,jpg,jfif|max:2048',
+            ]);
+
+            $category = new Category();
+            $category->name = $request->name;
+            $category->slug = Str::slug($request->name); 
+
+            $image = $request->file('image');
+            if ($image) {
+                $imagename = time() . '.' . $image->getClientOriginalExtension();
+                $category->image = $imagename;
+            }
+
+            $category->save();
+
+            if ($image) {
+                $image->move(public_path('uploads/category'), $imagename);
+            }
+
+            return redirect()->route('admin.categories')->with('category_message', 'Brand added successfully');
         }
+
+    }
 
 
 

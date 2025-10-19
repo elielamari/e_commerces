@@ -28,6 +28,11 @@ Route::middleware('admin')->group(function () {
     Route::put('/brand/updatebrand',[AdminController::class,'brandupdate'])->name('admin.brandupdate');
     Route::delete('/delete_brand/{id}',[AdminController::class,'deleteBrand'])->name('admin.deletebrand');
 
+    // Category Routes
+    Route::get('/categories',[AdminController::class, 'categories'])->name('admin.categories');
+    Route::get('/Add_categories', [AdminController::class, 'addCategories'])->name('admin.addcategories');
+    Route::post('/Add_categories',[AdminController::class, 'saveCategory'])->name('admin.savecategories');
+
 });
 
 require __DIR__.'/auth.php';
