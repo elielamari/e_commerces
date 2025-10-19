@@ -32,6 +32,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/categories',[AdminController::class, 'categories'])->name('admin.categories');
     Route::get('/Add_categories', [AdminController::class, 'addCategories'])->name('admin.addcategories');
     Route::post('/Add_categories',[AdminController::class, 'saveCategory'])->name('admin.savecategories');
+    Route::put('/updateCategories',[AdminController::class,'updateCategories'])->name('admin.updatecategories');
+    Route::get('/editCategories/{id}',[AdminController::class,'editCategories'])->name('admin.editCategories');
+    Route::delete('/delete_categories/{id}',[AdminController::class,'deleteCategories'])->name('admin.deleteCategories');
+
 
 });
 

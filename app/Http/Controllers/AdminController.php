@@ -17,6 +17,7 @@ use App\Models\Category;
 
 
 
+
 class AdminController extends Controller
 {
     public function addBrand(){
@@ -140,6 +141,54 @@ class AdminController extends Controller
 
             return redirect()->route('admin.categories')->with('category_message', 'Brand added successfully');
         }
+
+        public function editCategories($id){
+        $category=Category::find($id);
+        return view('admin.editCategories',compact('category'));
+    }
+
+
+        public function updateCategories(Request $request)
+        {
+            $category = Category::findOrFail($request->id); // Ensures brand exists
+
+            $request->validate([
+                'name' => 'required',
+                'slug' => 'required|unique:categories,slug,' . $category->id, // Ignore current brand's slug
+                'image' => 'nullable|mimes:png,jpeg,jpg,jfif|max:2048',
+            ]);
+
+            $category->name = $request->name;
+            $category->slug = Str::slug($request->slug); // Use slug from form, not regenerated
+
+            // Image upload handling
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($category->image && File::exists(public_path('uploads/category/' . $category->image))) {
+                    File::delete(public_path('uploads/category/' . $category->image));
+                }
+
+                $image = $request->file('image');
+                $imagename = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('uploads/category'), $imagename);
+
+                $category->image = $imagename;
+            }
+            $category->save();
+            return redirect()->route('admin.categories')->with('Category_message', 'Categories updated successfully');
+
+        }
+        
+           
+         public function deleteCategories($id){
+            $category=Category::find($id);
+            if(File::exists(public_path('uploads/category/'.$category->image))){
+                File::delete(public_path('uploads/category/'.$category->image));
+            }
+            $category->delete();
+            return redirect()->route('admin.categories')->with('category_message','category deleted successfully');
+         }
+    
 
     }
 
