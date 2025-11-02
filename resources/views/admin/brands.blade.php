@@ -60,12 +60,12 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="add-product.html" class="">
+                                            <a href="{{route('admin.addProducts')}}" class="">
                                                 <div class="text">Add Product</div>
                                             </a>
                                         </li>
                                         <li class="sub-menu-item">
-                                            <a href="products.html" class="">
+                                            <a href="{{route('admin.products')}}" class="">
                                                 <div class="text">Products</div>
                                             </a>
                                         </li>
@@ -421,13 +421,16 @@
                                                     <div class="body-title-2">Support</div>
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="login.html" class="user-item">
-                                                    <div class="icon">
-                                                        <i class="icon-log-out"></i>
-                                                    </div>
-                                                    <div class="body-title-2">Log out</div>
-                                                </a>
+                                           <li>
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+
+                                                <x-dropdown-link :href="route('logout')"
+                                                        onclick="event.preventDefault();
+                                                                    this.closest('form').submit();">
+                                                    {{ __('Log Out') }}
+                                                </x-dropdown-link>
+                                            </form>
                                             </li>
                                         </ul>
                                     </div>
@@ -509,6 +512,7 @@
                                                                     </div>
                                                                 </a>
                                                                
+                                                                
                                                                 
                                                                  <form action="{{route('admin.deletebrand', ['id' => $brand->id])}}" method="POST"
                                                                 onsubmit="return confirm('Are you sure ?')">

@@ -6,16 +6,16 @@
     <meta charset="utf-8">
     <meta name="author" content="themesflat.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="admin/css/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="admin/css/animation.css">
-    <link rel="stylesheet" type="text/css" href="admin/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="admin/css/bootstrap-select.min.css">
-    <link rel="stylesheet" type="text/css" href="admin/css/style.css">
-    <link rel="stylesheet" href="admin/font/fonts.css">
-    <link rel="stylesheet" href="admin/icon/style.css">
-    <link rel="shortcut icon" href="admin/images/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" href="admin/images/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="admin/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/css/animate.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/css/animation.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/css/bootstrap-select.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/font/fonts.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/icon/style.css')}}">
+    <link rel="shortcut icon" href="{{asset('admin/images/favicon.ico')}}">
+    <link rel="apple-touch-icon-precomposed" href="{{asset('admin/images/favicon.ico')}}">
+    
 </head>
 
 <body class="body">
@@ -32,8 +32,8 @@
                 <div class="section-menu-left">
                     <div class="box-logo">
                         <a href="index.html" id="site-logo-inner">
-                            <img class="" id="logo_header" alt="" src="admin/images/logo/logo.png"
-                                data-light="images/logo/logo.png" data-dark="admin/images/logo/logo.png">
+                            <img class="" id="logo_header" alt="" src="images/logo/logo.png"
+                                data-light="images/logo/logo.png" data-dark="images/logo/logo.png">
                         </a>
                         <div class="button-show-hide">
                             <i class="icon-menu-left"></i>
@@ -44,7 +44,7 @@
                             <div class="center-heading">Main Home</div>
                             <ul class="menu-list">
                                 <li class="menu-item">
-                                    <a href="index.html" class="">
+                                    <a href="{{route('admin.dashboard')}}" class="">
                                         <div class="icon"><i class="icon-grid"></i></div>
                                         <div class="text">Dashboard</div>
                                     </a>
@@ -60,12 +60,12 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="add-product.html" class="">
+                                            <a href="{{route('admin.addProducts')}}" class="">
                                                 <div class="text">Add Product</div>
                                             </a>
                                         </li>
                                         <li class="sub-menu-item">
-                                            <a href="products.html" class="">
+                                            <a href="{{route('admin.products')}}" class="">
                                                 <div class="text">Products</div>
                                             </a>
                                         </li>
@@ -78,12 +78,12 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="add-brand.html" class="">
+                                            <a href="{{route('admin.addbrand')}}" class="">
                                                 <div class="text">New Brand</div>
                                             </a>
                                         </li>
                                         <li class="sub-menu-item">
-                                            <a href="brands.html" class="">
+                                            <a href="{{route('admin.brands')}}" class="">
                                                 <div class="text">Brands</div>
                                             </a>
                                         </li>
@@ -96,12 +96,12 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="sub-menu-item">
-                                            <a href="add-category.html" class="">
+                                            <a href="{{route('admin.addcategories')}}" class="">
                                                 <div class="text">New Category</div>
                                             </a>
                                         </li>
                                         <li class="sub-menu-item">
-                                            <a href="categories.html" class="">
+                                            <a href="{{route('admin.categories')}}" class="">
                                                 <div class="text">Categories</div>
                                             </a>
                                         </li>
@@ -422,12 +422,15 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="login.html" class="user-item">
-                                                    <div class="icon">
-                                                        <i class="icon-log-out"></i>
-                                                    </div>
-                                                    <div class="body-title-2">Log out</div>
-                                                </a>
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+
+                                                <x-dropdown-link :href="route('logout')"
+                                                        onclick="event.preventDefault();
+                                                                    this.closest('form').submit();">
+                                                    {{ __('Log Out') }}
+                                                </x-dropdown-link>
+                                            </form>
                                             </li>
                                         </ul>
                                     </div>
@@ -436,15 +439,17 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="main-content">
+
+                        <!-- main-content-wrap -->
                         <div class="main-content-inner">
+                            <!-- main-content-wrap -->
                             <div class="main-content-wrap">
                                 <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-                                    <h3>Brand infomation</h3>
+                                    <h3>Add Product</h3>
                                     <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                                         <li>
-                                            <a href="#">
+                                            <a href="index-2.html">
                                                 <div class="text-tiny">Dashboard</div>
                                             </a>
                                         </li>
@@ -452,42 +457,96 @@
                                             <i class="icon-chevron-right"></i>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                <div class="text-tiny">Brands</div>
+                                            <a href="all-product.html">
+                                                <div class="text-tiny">Products</div>
                                             </a>
                                         </li>
                                         <li>
                                             <i class="icon-chevron-right"></i>
                                         </li>
                                         <li>
-                                            <div class="text-tiny">New Brand</div>
+                                            <div class="text-tiny">Add product</div>
                                         </li>
                                     </ul>
                                 </div>
-                                <!-- new-category -->
-                                <div class="wg-box">
-                                    <form class="form-new-product form-style-1" action="{{route('admin.savebrand')}}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
+                                <!-- form-add-product -->
+                                <form class="tf-section-2 form-add-product" method="POST" enctype="multipart/form-data"
+                                    action="{{route('admin.saveProduct')}}">
+                                    @csrf
+                                    <div class="wg-box">
                                         <fieldset class="name">
-                                            <div class="body-title">Brand Name <span class="tf-color-1">*</span></div>
-                                            <input class="flex-grow" type="text" placeholder="Brand name" name="name"
-                                                tabindex="0" value="{{old('name')}}" aria-required="true" required="">
+                                            <div class="body-title mb-10">Product name <span class="tf-color-1">*</span>
+                                            </div>
+                                            <input class="mb-10" type="text" placeholder="Enter product name"
+                                                name="name" tabindex="0" value="{{old('name')}}" aria-required="true" required="">
+                                            <div class="text-tiny">Do not exceed 100 characters when entering the
+                                                product name.</div>
                                         </fieldset>
-                                        @error('name') <span class="alert alert-danger text-center">{{$message}}</span>
-                                        <fieldset class="name">
-                                            <div class="body-title">Brand Slug <span class="tf-color-1">*</span></div>
-                                            <input class="flex-grow" type="text" placeholder="Brand Slug" name="slug"
-                                                tabindex="0" value="{{old('slug')}}" aria-required="true" required="">
-                                        </fieldset>
-                                        @error('slug') <span class="alert alert-danger text-center">{{$message}}</span>
 
+                                        <fieldset class="name">
+                                            <div class="body-title mb-10">Slug <span class="tf-color-1">*</span></div>
+                                            <input class="mb-10" type="text" placeholder="Enter product slug"
+                                                name="slug" tabindex="0" value="{{old('slug')}}" aria-required="true" required="">
+                                            <div class="text-tiny">Do not exceed 100 characters when entering the
+                                                product name.</div>
+                                        </fieldset>
+
+                                        <div class="gap22 cols">
+                                            <fieldset class="category">
+                                                <div class="body-title mb-10">Category <span class="tf-color-1">*</span>
+                                                </div>
+                                                <div class="select">
+                                                    <select class="" name="category_id">
+                                                        <option>Choose category</option>
+                                                        @foreach($categories as $category)
+                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset class="brand">
+                                                <div class="body-title mb-10">Brand <span class="tf-color-1">*</span>
+                                                </div>
+                                                <div class="select">
+                                                    <select class="" name="brand_id">
+                                                        <option>Choose Brand</option>
+                                                       @foreach($brands as $brand)
+                                                        <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+                                        <fieldset class="shortdescription">
+                                            <div class="body-title mb-10">Short Description <span
+                                                    class="tf-color-1">*</span></div>
+                                            <textarea class="mb-10 ht-150" name="short_description"
+                                                placeholder="Short Description" tabindex="0" aria-required="true"
+                                                required="">{{old('short_description')}}</textarea>
+                                            <div class="text-tiny">Do not exceed 100 characters when entering the
+                                                product name.</div>
+                                        </fieldset>
+
+                                        <fieldset class="description">
+                                            <div class="body-title mb-10">Description <span class="tf-color-1">*</span>
+                                            </div>
+                                            <textarea class="mb-10" name="description" placeholder="Description"
+                                                tabindex="0" aria-required="true" required="">{{old('description')}}</textarea>
+                                            <div class="text-tiny">Do not exceed 100 characters when entering the
+                                                product name.</div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="wg-box">
                                         <fieldset>
                                             <div class="body-title">Upload images <span class="tf-color-1">*</span>
                                             </div>
                                             <div class="upload-image flex-grow">
                                                 <div class="item" id="imgpreview" style="display:none">
-                                                    <img src="upload-1.html" class="effect8" alt="">
+                                                    <img src="../../../localhost_8000/images/upload/upload-1.png"
+                                                        class="effect8" alt="">
                                                 </div>
                                                 <div id="upload-file" class="item up-load">
                                                     <label class="uploadfile" for="myFile">
@@ -501,17 +560,92 @@
                                                 </div>
                                             </div>
                                         </fieldset>
-                                        @error('image') <span class="alert alert-danger text-center">{{$message}}</span>
 
-                                        <div class="bot">
-                                            <div></div>
-                                            <button class="tf-button w208" type="submit">Save</button>
+                                        <fieldset>
+                                            <div class="body-title mb-10">Upload Gallery Images</div>
+                                            <div class="upload-image mb-16">
+                                                <!-- <div class="item">
+                                <img src="images/upload/upload-1.png" alt="">
+                            </div>                                                 -->
+                                                <div id="galUpload" class="item up-load">
+                                                    <label class="uploadfile" for="gFile">
+                                                        <span class="icon">
+                                                            <i class="icon-upload-cloud"></i>
+                                                        </span>
+                                                        <span class="text-tiny">Drop your images here or select <span
+                                                                class="tf-color">click to browse</span></span>
+                                                        <input type="file" id="gFile" name="images[]" accept="image/*"
+                                                            multiple="">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <div class="cols gap22">
+                                            <fieldset class="name">
+                                                <div class="body-title mb-10">Regular Price <span
+                                                        class="tf-color-1">*</span></div>
+                                                <input class="mb-10" type="text" placeholder="Enter regular price"
+                                                    name="regular_price" tabindex="0" value="{{old('regular_price')}}" aria-required="true"
+                                                    required="">
+                                            </fieldset>
+                                            <fieldset class="name">
+                                                <div class="body-title mb-10">Sale Price <span
+                                                        class="tf-color-1">*</span></div>
+                                                <input class="mb-10" type="text" placeholder="Enter sale price"
+                                                    name="sale_price" tabindex="0" value="{{old('sale_price')}}" aria-required="true"
+                                                    required="">
+                                            </fieldset>
                                         </div>
-                                    </form>
-                                </div>
+
+
+                                        <div class="cols gap22">
+                                            <fieldset class="name">
+                                                <div class="body-title mb-10">SKU <span class="tf-color-1">*</span>
+                                                </div>
+                                                <input class="mb-10" type="text" placeholder="Enter SKU" name="SKU"
+                                                    tabindex="0" value="{{old('SKU')}}" aria-required="true" required="">
+                                            </fieldset>
+                                            <fieldset class="name">
+                                                <div class="body-title mb-10">Quantity <span class="tf-color-1">*</span>
+                                                </div>
+                                                <input class="mb-10" type="text" placeholder="Enter quantity"
+                                                    name="quantity" tabindex="0" value="{{old('quantity')}}" aria-required="true"
+                                                    required="">
+                                            </fieldset>
+                                        </div>
+
+                                        <div class="cols gap22">
+                                            <fieldset class="name">
+                                                <div class="body-title mb-10">Stock</div>
+                                                <div class="select mb-10">
+                                                    <select class="" name="stock_status">
+                                                        <option value="instock">InStock</option>
+                                                        <option value="outofstock">Out of Stock</option>
+                                                    </select>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset class="name">
+                                                <div class="body-title mb-10">Featured</div>
+                                                <div class="select mb-10">
+                                                    <select class="" name="featured">
+                                                        <option value="0">No</option>
+                                                        <option value="1">Yes</option>
+                                                    </select>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="cols gap10">
+                                            <button class="tf-button w-full" type="submit">Add product</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- /form-add-product -->
                             </div>
+                            <!-- /main-content-wrap -->
                         </div>
-                        
+                        <!-- /main-content-wrap -->
+
                         <div class="bottom-page">
                             <div class="body-text">Copyright © 2024 SurfsideMedia</div>
                         </div>
@@ -521,30 +655,35 @@
             </div>
         </div>
     </div>
-    <script>
-        $(function(){
-            $("#myFile").on("change",function(e){
-                const photo = $("#myFile");
-                const [file] = this.files;
-                if(file){
-                    $("#imgpreview img").attr('src',URL.createObjectURL(file));
-                    $("#imgpreview").show();
-                }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>    
+        $(document).ready(function () {
+            console.log("Slug generator ready");
+
+            // When user types in the product name field
+            $('input[name="name"]').on('input', function () {
+                const nameValue = $(this).val();
+                const slugValue = stringToSlug(nameValue);
+                $('input[name="slug"]').val(slugValue);
             });
-            $("input[name='name']").on("change",function(){
-                $("input[name='slug']").val(StringToSlug($(this).val()));
-            });
+
+            // Function to convert text to a slug
+            function stringToSlug(text) {
+                return text
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^\w\s-]/g, '')   // remove special chars
+                    .replace(/[\s_-]+/g, '-')   // replace spaces/underscores with dash
+                    .replace(/^-+|-+$/g, '');   // remove leading/trailing dashes
+            }
         });
-        function StringToSlug(Text){
-            return Text.ToLowerCase()
-            .replace(/[^\w ]+g,"")
-            .replace(/ +/g, "-");
-        }
-    </script>
-    <script src="admin/js/jquery.min.js"></script>
-    <script src="admin/js/bootstrap.min.js"></script>
-    <script src="admin/js/bootstrap-select.min.js"></script>   
-    <script src="admin/js/apexcharts/apexcharts.js"></script>
-    <script src="admin/js/main.js"></script>
+</script>
+    <script src="{{asset('admin/js/jquery.min.js')}}"></script>
+    <script src="{{asset('admin/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('admin/js/bootstrap-select.min.js')}}"></script>   
+    <script src="{{asset('admin/js/apexcharts/apexcharts.js')}}"></script>
+    <script src="{{asset('admin/js/main.js')}}"></script>
 </body>
+
 </html>

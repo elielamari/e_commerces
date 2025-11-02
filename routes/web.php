@@ -4,9 +4,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ShopController;
 Route::get('/', function () {
     return view('index');
 })->name('index');
+
+// SHOP ROUTE
+Route::get('/shop', [ShopController::class,'index'])->name('shop.index'); 
 
 
 
@@ -35,8 +39,17 @@ Route::middleware('admin')->group(function () {
     Route::put('/updateCategories',[AdminController::class,'updateCategories'])->name('admin.updatecategories');
     Route::get('/editCategories/{id}',[AdminController::class,'editCategories'])->name('admin.editCategories');
     Route::delete('/delete_categories/{id}',[AdminController::class,'deleteCategories'])->name('admin.deleteCategories');
-
-
+   
+    // Product Routes
+     Route::get('/Product',[AdminController::class,'Products'])->name('admin.products');
+     Route::get('/Add_Product', [AdminController::class, 'addProduct'])->name('admin.addProducts');
+     Route::post('/Add_product',[AdminController::class, 'saveProduct'])->name('admin.saveProduct');
+     Route::get('/editproduct/{id}',[AdminController::class,'editproduct'])->name('admin.editproduct');
+     Route::put('/productupdate',[AdminController::class,'productupdate'])->name( 'admin.productupdate');
+     Route::delete('/delete_product/{id}',[AdminController::class,'deleteproduct'])->name('admin.deleteproduct');
+   
 });
+
+
 
 require __DIR__.'/auth.php';
